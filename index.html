@@ -144,6 +144,7 @@
         radial-gradient(ellipse at 40% 80%, rgba(25, 25, 112, 0.05) 0%, transparent 50%);
       animation: nebulaMove 30s ease-in-out infinite;
       mix-blend-mode: overlay;
+      z-index: 1; /* Ensure nebula is above solar system but below content */
     }
 
     @keyframes nebulaMove {
@@ -158,9 +159,12 @@
       background: linear-gradient(45deg, var(--sun-color), var(--mars-color), var(--uranus-color), var(--neptune-color));
       background-size: 400%;
       -webkit-background-clip: text;
+      background-clip: text; /* Standard property for broader compatibility */
+      color: #ffffff; /* Fallback color for browsers not supporting background-clip */
       -webkit-text-fill-color: transparent;
       animation: cosmicShine 8s ease-in-out infinite;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 25px rgba(255, 255, 255, 0.7); /* Stronger shadow */
+      z-index: 20; /* Ensure title is above all background elements */
     }
 
     @keyframes cosmicShine {
@@ -173,6 +177,7 @@
       font-size: 3rem;
       margin-right: 1rem;
       animation: planetFloat 3s ease-in-out infinite;
+      z-index: 20; /* Ensure emoji is above background */
     }
 
     @keyframes planetFloat {
@@ -188,7 +193,9 @@
       overflow: hidden;
       transition: all 0.3s ease;
       animation: btnPulse 3s ease-in-out infinite;
-      z-index: 10;
+      z-index: 20; /* Increased z-index */
+      color: #ffffff; /* Ensure button text is visible */
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Stronger shadow for button text */
     }
 
     .cosmic-btn:hover {
@@ -225,9 +232,9 @@
       position: relative;
       overflow: hidden;
       animation: platformFloat 4s ease-in-out infinite;
-      z-index: 10;
+      z-index: 20; /* Increased z-index */
       color: #ffffff;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Stronger shadow */
     }
 
     .platform-planet:hover {
@@ -252,7 +259,9 @@
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
-      z-index: 10;
+      z-index: 20; /* Increased z-index */
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Stronger shadow */
     }
 
     .feature-constellation::before {
@@ -281,14 +290,12 @@
       opacity: 0;
       transform: translateY(50px);
       animation: sectionSlide 1s ease forwards;
-      z-index: 10;
+      z-index: 20; /* Increased z-index */
     }
 
     @keyframes sectionSlide {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(50px); } /* Explicit start */
+      100% { opacity: 1; transform: translateY(0); } /* Explicit end */
     }
 
     @media (max-width: 768px) {
@@ -302,24 +309,25 @@
       .saturn { --orbit-radius: 280px; }
       .uranus { --orbit-radius: 320px; }
       .neptune { --orbit-radius: 360px; }
-      .cosmic-title { font-size: 2.5rem; }
-      .platform-planet { margin: 0.5rem; }
-      .nebula { opacity: 0.5; }
+      .cosmic-title { font-size: 2rem; } /* Smaller font size */
+      .platform-planet { margin: 0.5rem; font-size: 0.9rem; } /* Smaller text */
+      .nebula { opacity: 0.3; } /* Further reduced opacity */
+      p, h2, h3 { font-size: 0.9rem; } /* Adjust text size for readability */
     }
 
     .fade-in {
-      animation: fadeIn 1s ease-in-out;
+      animation: fadeIn 1s ease-in-out forwards; /* Ensure forwards fill */
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     p, h1, h2, h3, a {
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Stronger shadow */
       position: relative;
-      z-index: 10;
+      z-index: 20; /* Increased z-index */
     }
   </style>
 </head>
@@ -347,7 +355,7 @@
   </div>
 
   <!-- Header -->
-  <header class="py-20 relative z-10">
+  <header class="py-20 relative z-20">
     <div class="container mx-auto px-4 text-center section-slide">
       <h1 class="text-6xl md:text-7xl font-bold cosmic-title flex items-center justify-center flex-wrap">
         <span class="planet-emoji">🌌</span>
@@ -363,7 +371,7 @@
   </header>
 
   <!-- About Section -->
-  <section class="py-20 relative z-10">
+  <section class="py-20 relative z-20">
     <div class="container mx-auto px-4 section-slide">
       <h2 class="text-5xl font-bold text-center mb-12 cosmic-title">
         <span class="planet-emoji">🌍</span> Mission Control
@@ -379,13 +387,13 @@
   </section>
 
   <!-- Features Section -->
-  <section class="py-20 relative z-10">
+  <section class="py-20 relative z-20">
     <div class="container mx-auto px-4 section-slide">
       <h2 class="text-5xl font-bold text-center mb-16 cosmic-title">
         <span class="planet-emoji">⭐</span> Stellar Capabilities
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="feature-constellation p-8 rounded-2xl text-center relative z-10">
+        <div class="feature-constellation p-8 rounded-2xl text-center relative z-20">
           <div class="text-6xl mb-6">🎬</div>
           <h3 class="text-2xl font-bold mb-4 text-yellow-400">Orbital Quality Control</h3>
           <p class="text-gray-300 leading-relaxed">
@@ -393,15 +401,15 @@
             Every mission deserves the perfect resolution.
           </p>
         </div>
-        <div class="feature-constellation p-8 rounded-2xl text-center relative z-10">
+        <div class="feature-constellation p-8 rounded-2xl text-center relative z-20">
           <div class="text-6xl mb-6">🪐</div>
-          <h3 class="text-2xl font-bold mb-4 text-yellow частично-400">Planetary Network</h3>
+          <h3 class="text-2xl font-bold mb-4 text-yellow-400">Planetary Network</h3>
           <p class="text-gray-300 leading-relaxed">
             Navigate through 20+ platforms including YouTube, Instagram, TikTok, and more. Our advanced URL validation ensures
             smooth interplanetary transfers every time.
           </p>
         </div>
-        <div class="feature-constellation p-8 rounded-2xl text-center relative z-10">
+        <div class="feature-constellation p-8 rounded-2xl text-center relative z-20">
           <div class="text-6xl mb-6">📡</div>
           <h3 class="text-2xl font-bold mb-4 text-yellow-400">Mission Logs</h3>
           <p class="text-gray-300 leading-relaxed">
@@ -414,7 +422,7 @@
   </section>
 
   <!-- Supported Platforms Section -->
-  <section class="py-20 relative z-10">
+  <section class="py-20 relative z-20">
     <div class="container mx-auto px-4 section-slide">
       <h2 class="text-5xl font-bold text-center mb-16 cosmic-title">
         <span class="planet-emoji">🌟</span> Supported Galaxies
@@ -445,7 +453,7 @@
   </section>
 
   <!-- Call to Action -->
-  <section class="py-20 relative z-10">
+  <section class="py-20 relative z-20">
     <div class="container mx-auto px-4 text-center section-slide">
       <h2 class="text-5xl font-bold mb-8 cosmic-title">
         <span class="planet-emoji">🚀</span> Ready for Launch?
@@ -461,7 +469,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="py-12 relative z-10 border-t border-gray-800">
+  <footer class="py-12 relative z-20 border-t border-gray-800">
     <div class="container mx-auto px-4 text-center section-slide">
       <p class="text-lg text-gray-300 mb-4">
         Lost in the digital cosmos? Our mission control is here to help!
@@ -492,7 +500,8 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('fade-in');
-          observer.unobserve(entry.target); // Unobserve after animation
+          entry.target.style.opacity = '1'; // Ensure opacity is set
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
@@ -518,7 +527,7 @@
     let lastTrailTime = 0;
     document.addEventListener('mousemove', (e) => {
       const now = Date.now();
-      if (now - lastTrailTime < 50) return; // Debounce to 50ms
+      if (now - lastTrailTime < 50) return;
       lastTrailTime = now;
 
       const star = document.createElement('div');
@@ -552,6 +561,13 @@
       }
     `;
     document.head.appendChild(style);
+
+    // Ensure text visibility on page load
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.section-slide').forEach(section => {
+        section.style.opacity = '1'; // Force opacity to 1 after load
+      });
+    });
   </script>
 </body>
 </html>
