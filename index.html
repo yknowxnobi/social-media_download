@@ -28,7 +28,6 @@
       min-height: 100vh;
     }
 
-    /* Solar System Animation */
     .solar-system {
       position: fixed;
       top: 0;
@@ -36,7 +35,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: -2; /* Lowered z-index to ensure content is above */
+      z-index: 0;
     }
 
     .sun {
@@ -50,7 +49,7 @@
       transform: translate(-50%, -50%);
       box-shadow: 0 0 60px var(--sun-color), 0 0 120px rgba(255, 215, 0, 0.5);
       animation: sunPulse 4s ease-in-out infinite;
-      will-change: transform; /* Optimize rendering */
+      will-change: transform;
     }
 
     @keyframes sunPulse {
@@ -64,42 +63,24 @@
       top: 50%;
       left: 50%;
       transform-origin: center;
-      will-change: transform; /* Optimize planet animations */
+      will-change: transform;
+      animation: orbit linear infinite;
     }
 
-    .mercury { width: 8px; height: 8px; background: var(--mercury-color); animation: orbit 8s linear infinite; }
-    .venus { width: 12px; height: 12px; background: var(--venus-color); animation: orbit 12s linear infinite; }
-    .earth { width: 16px; height: 16px; background: var(--earth-color); animation: orbit 16s linear infinite; }
-    .mars { width: 12px; height: 12px; background: var(--mars-color); animation: orbit 20s linear infinite; }
-    .jupiter { width: 32px; height: 32px; background: var(--jupiter-color); animation: orbit 24s linear infinite; }
-    .saturn { width: 28px; height: 28px; background: var(--saturn-color); animation: orbit 28s linear infinite; }
-    .uranus { width: 20px; height: 20px; background: var(--uranus-color); animation: orbit 32s linear infinite; }
-    .neptune { width: 18px; height: 18px; background: var(--neptune-color); animation: orbit 36s linear infinite; }
-
-    .mercury { transform: translate(-50%, -50%) translateX(150px); }
-    .venus { transform: translate(-50%, -50%) translateX(200px); }
-    .earth { transform: translate(-50%, -50%) translateX(250px); }
-    .mars { transform: translate(-50%, -50%) translateX(300px); }
-    .jupiter { transform: translate(-50%, -50%) translateX(380px); }
-    .saturn { transform: translate(-50%, -50%) translateX(450px); }
-    .uranus { transform: translate(-50%, -50%) translateX(520px); }
-    .neptune { transform: translate(-50%, -50%) translateX(580px); }
+    .mercury { width: 8px; height: 8px; background: var(--mercury-color); --orbit-radius: 150px; animation-duration: 8s; }
+    .venus { width: 12px; height: 12px; background: var(--venus-color); --orbit-radius: 200px; animation-duration: 12s; }
+    .earth { width: 16px; height: 16px; background: var(--earth-color); --orbit-radius: 250px; animation-duration: 16s; }
+    .mars { width: 12px; height: 12px; background: var(--mars-color); --orbit-radius: 300px; animation-duration: 20s; }
+    .jupiter { width: 32px; height: 32px; background: var(--jupiter-color); --orbit-radius: 380px; animation-duration: 24s; }
+    .saturn { width: 28px; height: 28px; background: var(--saturn-color); --orbit-radius: 450px; animation-duration: 28s; }
+    .uranus { width: 20px; height: 20px; background: var(--uranus-color); --orbit-radius: 520px; animation-duration: 32s; }
+    .neptune { width: 18px; height: 18px; background: var(--neptune-color); --orbit-radius: 580px; animation-duration: 36s; }
 
     @keyframes orbit {
- abz      0% { transform: translate(-50%, -50%) rotate(0deg) translateX(var(--orbit-radius, 200px)) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg) translateX(var(--orbit-radius, 200px)) rotate(-360deg); }
+      0% { transform: translate(-50%, -50%) rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
     }
 
-    .mercury { --orbit-radius: 150px; }
-    .venus { --orbit-radius: 200px; }
-    .earth { --orbit-radius: 250px; }
-    .mars { --orbit-radius: 300px; }
-    .jupiter { --orbit-radius: 380px; }
-    .saturn { --orbit-radius: 450px; }
-    .uranus { --orbit-radius: 520px; }
-    .neptune { --orbit-radius: 580px; }
-
-    /* Saturn's rings */
     .saturn::before {
       content: '';
       position: absolute;
@@ -112,11 +93,12 @@
       transform: translate(-50%, -50%);
     }
 
-    /* Asteroid belt */
     .asteroid {
       position: absolute;
       background: #8B4513;
       border-radius: 50%;
+      top: 50%;
+      left: 50%;
       animation: asteroidOrbit 15s linear infinite;
       will-change: transform;
     }
@@ -132,7 +114,6 @@
       100% { transform: translate(-50%, -50%) rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
     }
 
-    /* Shooting stars */
     .shooting-star {
       position: absolute;
       width: 2px;
@@ -153,7 +134,6 @@
       100% { transform: translateX(300px) translateY(300px); opacity: 0; }
     }
 
-    /* Nebula background */
     .nebula {
       position: absolute;
       width: 100%;
@@ -163,8 +143,7 @@
         radial-gradient(ellipse at 80% 70%, rgba(75, 0, 130, 0.05) 0%, transparent 50%),
         radial-gradient(ellipse at 40% 80%, rgba(25, 25, 112, 0.05) 0%, transparent 50%);
       animation: nebulaMove 30s ease-in-out infinite;
-      mix-blend-mode: overlay; /* Blend nebula to avoid obscuring text */
-      will-change: transform;
+      mix-blend-mode: overlay;
     }
 
     @keyframes nebulaMove {
@@ -173,7 +152,6 @@
       66% { transform: translateX(20px) translateY(-10px) rotate(-1deg); }
     }
 
-    /* Enhanced typography */
     .cosmic-title {
       font-family: 'Orbitron', monospace;
       font-weight: 900;
@@ -182,7 +160,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: cosmicShine 8s ease-in-out infinite;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.5); /* Stronger shadow for contrast */
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
     }
 
     @keyframes cosmicShine {
@@ -202,7 +180,6 @@
       50% { transform: translateY(-10px) rotate(5deg); }
     }
 
-    /* Enhanced buttons */
     .cosmic-btn {
       background: linear-gradient(45deg, var(--mars-color), var(--jupiter-color), var(--uranus-color));
       background-size: 300%;
@@ -211,7 +188,7 @@
       overflow: hidden;
       transition: all 0.3s ease;
       animation: btnPulse 3s ease-in-out infinite;
-      z-index: 10; /* Ensure buttons are above background */
+      z-index: 10;
     }
 
     .cosmic-btn:hover {
@@ -240,7 +217,6 @@
       50% { background-position: 100%; }
     }
 
-    /* Platform cards as planets */
     .platform-planet {
       background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
       backdrop-filter: blur(10px);
@@ -249,16 +225,17 @@
       position: relative;
       overflow: hidden;
       animation: platformFloat 4s ease-in-out infinite;
-      z-index: 10; /* Ensure platforms are above background */
-      color: #ffffff; /* High contrast for text */
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Shadow for readability */
+      z-index: 10;
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     }
 
     .platform-planet:hover {
       transform: scale(1.1) rotateY(15deg);
       box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
       border-color: var(--sun-color);
-$
+    }
+
     .platform-planet:nth-child(odd) {
       animation-delay: 0.5s;
     }
@@ -268,7 +245,6 @@ $
       50% { transform: translateY(-5px) rotateX(2deg); }
     }
 
-    /* Feature cards */
     .feature-constellation {
       background: linear-gradient(135deg, rgba(30, 58, 138, 0.3), rgba(15, 23, 42, 0.8));
       backdrop-filter: blur(15px);
@@ -276,7 +252,7 @@ $
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
-      z-index: 10; /* Ensure features are above background */
+      z-index: 10;
     }
 
     .feature-constellation::before {
@@ -301,12 +277,11 @@ $
       100% { transform: rotate(360deg); }
     }
 
-    /* Section animations */
     .section-slide {
       opacity: 0;
       transform: translateY(50px);
       animation: sectionSlide 1s ease forwards;
-      z-index: 10; /* Ensure sections are above background */
+      z-index: 10;
     }
 
     @keyframes sectionSlide {
@@ -316,16 +291,22 @@ $
       }
     }
 
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       .sun { width: 80px; height: 80px; }
       .planet { transform: scale(0.7); }
+      .mercury { --orbit-radius: 100px; }
+      .venus { --orbit-radius: 130px; }
+      .earth { --orbit-radius: 160px; }
+      .mars { --orbit-radius: 190px; }
+      .jupiter { --orbit-radius: 240px; }
+      .saturn { --orbit-radius: 280px; }
+      .uranus { --orbit-radius: 320px; }
+      .neptune { --orbit-radius: 360px; }
       .cosmic-title { font-size: 2.5rem; }
       .platform-planet { margin: 0.5rem; }
-      .nebula { opacity: 0.5; } /* Reduce nebula intensity on small screens */
+      .nebula { opacity: 0.5; }
     }
 
-    /* Scroll animations */
     .fade-in {
       animation: fadeIn 1s ease-in-out;
     }
@@ -335,11 +316,10 @@ $
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* General text contrast enhancement */
     p, h1, h2, h3, a {
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add shadow to all text for readability */
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
       position: relative;
-      z-index: 10; /* Ensure text is above background */
+      z-index: 10;
     }
   </style>
 </head>
@@ -370,13 +350,13 @@ $
   <header class="py-20 relative z-10">
     <div class="container mx-auto px-4 text-center section-slide">
       <h1 class="text-6xl md:text-7xl font-bold cosmic-title flex items-center justify-center flex-wrap">
-        <span class="planet-emoji">🌌</span> 
+        <span class="planet-emoji">🌌</span>
         <span>Social Media Saver Bot</span>
       </h1>
       <p class="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
         Journey through the digital cosmos to download videos from 20+ platforms across the galaxy!
       </p>
-      <a href="https://t.me/Social_MediaSaverBot" class="mt-8 inline-block cosmic-btn text-white font-bold py-4 px-10 rounded-full text-lg">
+      <a href="https://t.me/Social_MediaSaverBot" class="mt-8 inline-block cosmic-btn text-white font-bold py-4 px-10 rounded-full text-lg" aria-label="Launch Social Media Saver Bot on Telegram">
         🚀 Launch Into Space
       </a>
     </div>
@@ -390,8 +370,8 @@ $
       </h2>
       <div class="max-w-4xl mx-auto text-center">
         <p class="text-xl text-gray-300 leading-relaxed">
-          Welcome to the ultimate intergalactic video downloading experience! Our advanced bot navigates through the digital universe, 
-          collecting videos from distant platforms with precision and style. Configure your mission parameters including video quality, 
+          Welcome to the ultimate intergalactic video downloading experience! Our advanced bot navigates through the digital universe,
+          collecting videos from distant platforms with precision and style. Configure your mission parameters including video quality,
           audio bitrate, and destination platforms for a truly customized space expedition.
         </p>
       </div>
@@ -409,15 +389,15 @@ $
           <div class="text-6xl mb-6">🎬</div>
           <h3 class="text-2xl font-bold mb-4 text-yellow-400">Orbital Quality Control</h3>
           <p class="text-gray-300 leading-relaxed">
-            Fine-tune your downloads with precision quality settings from 144p to 4K, and crystal-clear audio from 128kbps to 320kbps. 
+            Fine-tune your downloads with precision quality settings from 144p to 4K, and crystal-clear audio from 128kbps to 320kbps.
             Every mission deserves the perfect resolution.
           </p>
         </div>
         <div class="feature-constellation p-8 rounded-2xl text-center relative z-10">
           <div class="text-6xl mb-6">🪐</div>
-          <h3 class="text-2xl font-bold mb-4 text-yellow-400">Planetary Network</h3>
+          <h3 class="text-2xl font-bold mb-4 text-yellow частично-400">Planetary Network</h3>
           <p class="text-gray-300 leading-relaxed">
-            Navigate through 20+ platforms including YouTube, Instagram, TikTok, and more. Our advanced URL validation ensures 
+            Navigate through 20+ platforms including YouTube, Instagram, TikTok, and more. Our advanced URL validation ensures
             smooth interplanetary transfers every time.
           </p>
         </div>
@@ -425,7 +405,7 @@ $
           <div class="text-6xl mb-6">📡</div>
           <h3 class="text-2xl font-bold mb-4 text-yellow-400">Mission Logs</h3>
           <p class="text-gray-300 leading-relaxed">
-            All downloads are securely logged in our private space station with detailed mission reports, 
+            All downloads are securely logged in our private space station with detailed mission reports,
             ensuring complete transparency and tracking for every cosmic journey.
           </p>
         </div>
@@ -471,10 +451,10 @@ $
         <span class="planet-emoji">🚀</span> Ready for Launch?
       </h2>
       <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-        Join thousands of space explorers who trust our bot for their video downloading missions. 
+        Join thousands of space explorers who trust our bot for their video downloading missions.
         Your cosmic adventure awaits!
       </p>
-      <a href="https://t.me/Social_MediaSaverBot" class="cosmic-btn text-white font-bold py-4 px-12 rounded-full text-xl">
+      <a href="https://t.me/Social_MediaSaverBot" class="cosmic-btn text-white font-bold py-4 px-12 rounded-full text-xl" aria-label="Start your journey with Social Media Saver Bot on Telegram">
         🌌 Start Your Journey
       </a>
     </div>
@@ -495,14 +475,14 @@ $
         </a>
       </div>
       <p class="text-gray-400">
-        Developed by <a href="https://t.me/meta_server" class="text-yellow-400 hover:text-yellow-300 transition-colors">Meta Server</a> | 
+        Developed by <a href="https://t.me/meta_server" class="text-yellow-400 hover:text-yellow-300 transition-colors">Meta Server</a> |
         © 2025 Cosmic Downloads
       </p>
     </div>
   </footer>
 
   <script>
-    // Add scroll-triggered animations
+    // IntersectionObserver for scroll animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -512,6 +492,7 @@ $
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('fade-in');
+          observer.unobserve(entry.target); // Unobserve after animation
         }
       });
     }, observerOptions);
@@ -520,21 +501,26 @@ $
       observer.observe(section);
     });
 
-    // Add interactive planet effects
+    // Interactive planet effects
     document.querySelectorAll('.platform-planet').forEach(planet => {
       planet.addEventListener('mouseenter', () => {
         planet.style.transform = 'scale(1.15) rotateY(15deg)';
         planet.style.boxShadow = '0 0 40px rgba(255, 215, 0, 0.8)';
       });
-      
+
       planet.addEventListener('mouseleave', () => {
         planet.style.transform = 'scale(1) rotateY(0deg)';
         planet.style.boxShadow = '';
       });
     });
 
-    // Add cosmic cursor trail effect
+    // Cosmic cursor trail with debouncing
+    let lastTrailTime = 0;
     document.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if (now - lastTrailTime < 50) return; // Debounce to 50ms
+      lastTrailTime = now;
+
       const star = document.createElement('div');
       star.className = 'cosmic-cursor';
       star.style.cssText = `
@@ -549,15 +535,15 @@ $
         top: ${e.clientY}px;
         animation: starFade 1s ease-out forwards;
       `;
-      
+
       document.body.appendChild(star);
-      
+
       setTimeout(() => {
         star.remove();
       }, 1000);
     });
 
-    // Add CSS for cosmic cursor
+    // CSS for cosmic cursor
     const style = document.createElement('style');
     style.textContent = `
       @keyframes starFade {
